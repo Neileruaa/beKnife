@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Couteau{% endblock %}
+
+{% block body %}
+    <h1>Couteau</h1>
+
+    <a class="btn btn-secondary" href="{{ path('app_couteau_addOutil', {'id': couteau.id}) }}">Ajouter outil sur ce couteau</a>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ couteau.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ couteau.nom }}</td>
+            </tr>
+            <tr>
+                <th>Couleur</th>
+                <td>
+                    <input type="color" value="{{ couteau.couleur }}">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    Outils
+    <table class="table">
+        <tbody>
+        {% for couteauOutils in couteau.couteauOutils %}
+            <tr>
+                <th>{{ couteauOutils.outil.nom }}</th>
+                {% if couteauOutils.isGauche %}
+                    <td>Gauche</td>
+                {% elseif couteauOutils.outil.isCentral %}
+                    <td>Central</td>
+                {% elseif couteauOutils.isDroite %}
+                    <td>Droite</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_couteau_index') }}">Retour à la liste</a>
+
+    {{ include('couteau/_delete_form.html.twig') }}
+{% endblock %}

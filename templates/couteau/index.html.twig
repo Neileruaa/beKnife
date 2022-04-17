@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Couteau index{% endblock %}
+
+{% block body %}
+    <h1>Couteau index</h1>
+    <a class="btn btn-info" href="{{ path('app_couteau_new') }}">Créer un nouveau</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for couteau in couteaus %}
+            <tr>
+                <td>{{ couteau.id }}</td>
+                <td>{{ couteau.nom }}</td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('app_couteau_show', {'id': couteau.id}) }}">Afficher</a>
+                    {{ include('couteau/_delete_form.html.twig') }}
+                    <a href="{{ path('app_couteau_generateCsvFile', {'id': couteau.id}) }}">Generer csv</a>
+                    <a href="{{ path('app_couteau_generateInvoice', {'id': couteau.id}) }}">Generer facture</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Pas de couteau</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

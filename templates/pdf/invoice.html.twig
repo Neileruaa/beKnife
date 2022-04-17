@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Template</title>
+    <meta charset="utf-8">
+    <style>
+        page { size:A4; margin-left:auto; margin-right:auto; }
+        html { height:100%; }
+        body { margin-left:2.2cm; margin-right:1cm; }
+        table { border-collapse:collapse; border-spacing:0; border:0; width:100%; }
+        th, td { padding:0; }
+        @media print { footer {page-break-after:always; } }
+
+        .foldmark { position:absolute; background-color:black; height:1px; width:3mm; left:4mm; }
+
+        .stamp {
+            transform: rotate(12deg);
+            color: #555;
+            font-size: 3rem;
+            font-weight: 700;
+            border: 0.25rem solid #555;
+            display: inline-block;
+            padding: 0.25rem 1rem;
+            text-transform: uppercase;
+            border-radius: 1rem;
+            font-family: 'Courier';
+            -webkit-mask-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/8399/grunge.png');
+            -webkit-mask-size: 944px 604px;
+            mix-blend-mode: multiply;
+        }
+
+        .is-approved {
+            color: #0A9928;
+            border: 0.5rem solid #0A9928;
+            -webkit-mask-position: 13rem 6rem;
+            transform: rotate(-14deg);
+            border-radius: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+{#<div style="width:100%; height:5.1cm; background:url(logo.png) right center no-repeat;"></div>#}
+<div style="font-size:100%; font-family:Helvetica, sans-serif; float:left; width:100%;">
+    <table>
+        <tr>
+            <td style="width:70%; vertical-align:top;">
+                <strong>BeKnife</strong><br>10 rue du Roi de France<br>75005 Paris<br>			<br>
+                <table>
+                    <tr><td><strong>Téléphone</strong></td><td>0123456789</td></tr>				<tr><td><strong>Fax</strong></td><td>0123456789</td></tr>				<tr><td><strong>Email</strong></td><td>contact@beknife.fr</td></tr>				<tr><td><strong>Site</strong></td><td>https://beknife.fr</td></tr>			</table>
+            </td>
+            <td><span style="width:30%; font-size:65%; text-decoration:underline;">beknife · 10 rue du Roi de France · 75005 Paris</span><br><br><strong>{{ data.nom }}  {{ data.prenom }}</strong><br>{{ data.adresse }}<br><br>{{ data.cp}} {{ data.ville }}<br><br>			<br><br><br><br><br>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td style="text-align:right; font-size: 90%;">
+                Paris, le {{ "now"|date("d/m/Y") }}		</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="border-bottom: 1px solid #000;">
+                Numéro Facture : {{ random() }}   {{ couteau.nom }}
+                <br>
+                Numéro Client : {{ random() }} <br>
+                <br><br>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr style="font-weight: bold;">
+            <td style="width:15%;">Article</td>
+            <td style="width:10%; text-align:right;">Quantité</td>
+            <td style="width:15%; text-align:right;">Prix Unitaire</td>
+            <td style="width:15%; text-align:right;">Total HT</td>
+        </tr>
+        <tr>
+            <td colspan="5" style="border-top:1px solid #000;">&nbsp;</td>
+        </tr>
+
+        {% for lf in ligneF %}
+        <tr>
+            <td>{{ lf.nom }}</td>
+            <td style="text-align:right;">1</td>
+            <td style="text-align:right;">{{ lf.prix }} €</td>
+            <td style="text-align:right;">{{ lf.prix }} €</td>
+        </tr>
+        {% endfor %}
+
+        <tr>
+            <td colspan="5" style="border-bottom:1px solid #000;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="5">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align:right;">Total HT</td>
+            <td style="text-align:right;">{{ totalMnt }} €</td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align:right;">TVA 20%</td>
+            <td style="text-align:right;">{{ totalMnt * 0.2 }} €</td>
+        </tr>
+        <tr>
+            <td colspan="5" style="border-bottom: 1px solid #000;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="5">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="4" style="text-align:right; font-weight:bold;">Total TTC</td>
+            <td style="text-align:right; font-weight:bold;">{{ totalMnt * 1.2 }} €</td>
+        </tr>
+    </table>
+
+    <br><br><br>
+
+    <table>
+        <tr>
+            <td style="font-weight:bold;"><u>Commentaire:</u></td>
+        </tr>
+        <tr>
+            <td>
+                <br>
+                À payer : 0,00€<br>
+                Montant payé :  100% <br>
+                Mode de règlement : Paiement par carte bancaire - Date de règlement : {{ "now"|date("d/m/Y") }} <br>
+                Sous réserve d'erreurs et de modifications. Nos conditions générales s'appliquent.<br><br><br>
+                Merci pour votre commande.
+            </td>
+        </tr>
+    </table>
+    <br><br><br><br><br>
+    <span class="stamp is-approved">Payé</span>
+
+    <footer style="position:fixed; bottom:5mm; left:0; font-size: 70%; font-weight: bold; text-align: center; width: 100%; vertical-align:bottom;">
+        BeKnife · 123 568 941 00056 · PARIS ·  4711D<br>Création de couteaux sur mesure · IBAN FR7630001007941234567890185 · BIC CEPAFRPP	</footer>
+</div>
+</body>
+</html>

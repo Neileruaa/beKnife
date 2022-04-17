@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout outil{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un outil</h1>
+    {{ form_start(form) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.outil) }}
+        </div>
+        {{ form_rest(form) }}
+    </div>
+    <button class="btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_couteau_index') }}">Retour à la liste</a>
+
+{% endblock %}

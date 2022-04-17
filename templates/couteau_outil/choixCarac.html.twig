@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Custom carac</h1>
+    <a href="{{ path('app_couteau_addOutil', {'id': couteau.id}) }}">Ajouter un autre outil</a>
+    {% for couteauOutil in couteauOutils %}
+        <div class="card">
+            <div class="card-body">
+                {{couteauOutil.outil }}
+                <br>
+                {% if couteauOutil.outil.isCentral %}
+                    <span>Outil central</span>
+                {% else %}
+                    <form action="{{ path('app_couteau_outil_editdroitegauche', {'id': couteauOutil.id}) }}">
+                        <input type="radio" id="droite" name="dorg" value="droite" {% if couteauOutil.isDroite %}checked="checked"{% endif %}>
+                        <label for="droite">Droite</label><br>
+                        <input type="radio" id="gauche" name="dorg" value="gauche" {% if couteauOutil.isGauche %}checked="checked"{% endif %}>
+                        <label for="gauche">Gauche</label><br>
+                        <input type="submit" value="Valider">
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block title %}
+    Choix carac couteau
+{% endblock %}
+

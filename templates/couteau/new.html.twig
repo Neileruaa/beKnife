@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Couteau{% endblock %}
+
+{% block body %}
+    <h1>Create new Couteau</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_couteau_index') }}">Retour à la liste</a>
+
+    <script>
+        // var $taille = $('#couteau_taille');
+        // var $outils = $('#couteau_outils');
+        // $outils.parent().hide();
+        // // When sport gets selected ...
+        // $taille.change(function() {
+        //      if ($taille.val() == 0 || !$taille.val()) {
+        //         console.log("je suis dans le else qsdqsdqsdqsdqsd", $taille.val());
+        //          location.reload();
+        //     } else if($taille.val() !== null || $taille.val() !== ""){
+        //     // Submit data via AJAX to the form's action path.
+        //     console.log("je suis la ");
+        //      console.log("je suis dans le else ", $taille.val());
+        //     $outils.parent().show();
+        //     }
+        //
+        // });
+    </script>
+{% endblock %}
